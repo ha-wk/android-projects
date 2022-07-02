@@ -20,13 +20,16 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     EditText edit;
-    TextView text;
+    TextView text,text1,text2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         edit=findViewById(R.id.edit);
         text=findViewById(R.id.text);
+        text1=findViewById(R.id.text1);
+        text2=findViewById(R.id.text2);
+
     }
     public void get(View v)
     {
@@ -40,8 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject object = response.getJSONObject("main");
                     String temperature = object.getString("temp");
+                    String humidity = object.getString("humidity");
+                    String pressure = object.getString("pressure");
                     Double temp=Double.parseDouble(temperature)-273.15;
                     text.setText("Temperature is "+temp.toString().substring(0,2)+" degree C");
+                    text1.setText("Humidity is "+humidity.toString().substring(0,2)+"%");
+                    text2.setText("Pressure is "+pressure.toString().substring(0,2)+" hPa");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
